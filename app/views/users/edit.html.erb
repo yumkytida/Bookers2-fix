@@ -1,0 +1,26 @@
+<% if @user.errors.any? %>
+  <div class="alert alert-warning">
+    <ul>
+      <%= @user.errors.count %>errors
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<h2>User info</h2>
+<%= form_for(@user) do |f| %>
+	<h2>Name</h2>
+	<%= f.text_field :name %>
+	<h2>Image</h2>
+	<div class="form-group has-icon">
+	  <div class="user-edit-image">
+	    <%= attachment_image_tag @user, :profile_image, format: 'jpeg', size: "50x50",  class: "pull-left profile-img", fallback: "no_image.jpg" %>
+	  </div>
+	  <label class="control-label sr-only" for="inputEmail">ProfileImage</label>
+	  <%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+	</div>
+	<h2>Introduction</h2>
+	<%= f.text_area :introduction %>
+	<%= f.submit 'Update User' %>
+<% end %>
